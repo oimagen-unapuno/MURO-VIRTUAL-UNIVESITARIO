@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Informativo UNAP</title> 
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        @font-face {
+            font-family: 'League Spartan Local';
+            src: url('LeagueSpartan-VariableFont_wght.ttf') format('truetype');
+            font-weight: 100 900; 
+            font-style: normal;
+        }
+
+        :root {
+            --rojo-congreso: #04429b;
+            --oscuro: #1a1a1a;
+            --gris-claro: #f4f4f4;
+            --blanco: #ffffff;
+        }
+
+        html, body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+            background-color: var(--gris-claro);
+        }
+
+        body {
+            font-family: 'CinzelCongreso', serif;
+            color: var(--oscuro);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .top-bar {
+            background: white;
+            padding: 12px 40px;
+            display: flex;
+            justify-content: space-between; 
+            align-items: center;
+            border-bottom: 6px solid var(--dorado-unap);
+            flex-shrink: 0; 
+        }
+
+        .grupo-pines {
+            display: flex !important;
+            gap: 15px;
+            align-items: center !important;
+        }
+
+        .grupo-pines img {
+            height: 25px !important;
+            width: auto !important;
+            filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.25)) !important;
+        }
+
+        header {
+            background: var(--rojo-congreso);
+            color: white;
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            position: relative !important;
+            height: 90px;
+            box-sizing: border-box;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .logo-area { 
+            display: flex; 
+            align-items: center; 
+            z-index: 2;
+        }
+        
+        .logo-unap { 
+            height: 65px; 
+            width: auto;
+            filter: drop-shadow(0px 2px 5px rgba(0,0,0,0.3)); 
+        }
+        
+        .titulo-central-contenedor {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: auto;
+            white-space: nowrap;
+            z-index: 2;
+        }
+
+        .titulo-muro-azul {
+            font-family: 'League Spartan Local', sans-serif !important; 
+            color: #ffffff !important; 
+            font-size: 42px !important; 
+            font-weight: 800 !important; 
+            letter-spacing: 1.5px !important; 
+            text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4) !important; 
+        }
+        
+        .patron-tech-izq, .patron-tech-der {
+            position: absolute !important;
+            top: 50% !important;
+            transform: translateY(-50%) !important; 
+            height: 75px !important; 
+            width: auto !important;
+            opacity: 0.15; 
+            z-index: 1;
+        }
+
+        .patron-tech-izq { left: 40px !important; transform: translateY(-50%) scaleX(-1) !important; }
+        .patron-tech-der { right: 40px !important; }
+
+        nav {
+            background: white;
+            padding: 12px 50px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center; 
+            gap: 40px;              
+            font-family: 'League Spartan Local', sans-serif !important;
+            font-size: 1.0rem; 
+            font-weight: 800; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .main-container {
+            display: flex !important;      
+            justify-content: space-between !important; 
+            align-items: stretch !important; 
+            gap: 30px; 
+            padding: 20px 40px;
+            box-sizing: border-box;
+            flex-grow: 1; 
+            height: 0;    
+        }
+
+        .hero-news-slider {
+            position: relative;
+            width: 65%;        
+            height: 100%; 
+            overflow: hidden;
+            background: #ffffff; 
+            border-radius: 12px !important;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+         
+        .news-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;         
+            flex-direction: column; 
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 1.2s ease-in-out, visibility 1.2s ease-in-out;
+            z-index: 1;
+        }
+
+        .news-slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 2;
+        }
+
+        
+        .news-slide img {
+            width: 100%;
+            height: 62%;         
+            object-fit: cover;
+        }
+
+        
+        .news-slide .cuerpo-noticia {
+            height: 38%;           
+            padding: 20px 35px;
+            background: #ffffff;   
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+        }
+
+        .cuerpo-noticia h2 { 
+            font-size: 1.85rem; 
+            margin: 4px 0 10px 0; 
+            line-height: 1.25; 
+            color: #000000; 
+            font-weight: bold;
+            font-family: 'League Spartan Local', sans-serif !important; 
+        }
+
+        .cuerpo-noticia p { 
+            font-size: 1.4rem; 
+            color: #1a1a1a; 
+            margin: 0;
+            line-height: 1.45;
+            text-transform: none; 
+            letter-spacing: 0px;
+            font-family: 'League Spartan Local', sans-serif !important; 
+        }
+
+        .tag-lo-ultimo {
+            background: var(--rojo-congreso); 
+            padding: 3px 12px; 
+            font-size: 14px;
+            display: inline-block;
+            margin-bottom: 4px;
+            color: white;
+            align-self: flex-start;
+            font-family: 'League Spartan Local', sans-serif !important;
+            font-weight: bold;
+        }
+
+        .sidebar-directorio {
+            width: 35% !important; 
+            height: 100%; 
+            background: #ffffff;
+            border-radius: 12px !important;
+            border: none !important; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; 
+        }
+
+        .directorio-header {
+            background: var(--rojo-congreso);
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            font-family: 'League Spartan Local', sans-serif !important;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+
+        .directorio-lista {
+            padding: 12px;
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            gap: 6px; 
+            height: 100%;
+            box-sizing: border-box;
+        }
+
+        .piso-item {
+            background: #f9f9f9;
+            border-left: 6px solid var(--rojo-congreso);
+            padding: 8px 14px; 
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            flex-grow: 1; 
+        }
+
+        .piso-nombre {
+            font-family: 'League Spartan Local', sans-serif !important;
+            color: var(--rojo-congreso);
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 3px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .piso-oficinas {
+            font-size: 13px; 
+            color: #000000;
+            text-transform: none; 
+            font-family: sans-serif;
+            font-weight: bold;
+            margin: 0;
+            padding: 0;
+            list-style-type: none; 
+        }
+
+        .piso-oficinas li {
+            position: relative;
+            padding-left: 16px; 
+            line-height: 1.35;
+            margin-bottom: 1px;
+        }
+
+        .piso-oficinas li::before {
+            content: "-"; 
+            position: absolute;
+            left: 2px;
+            top: -1px; 
+            font-size: 12px; 
+            color: var(--rojo-congreso);
+            font-weight: bold;
+        }
+
+        .piso-oficinas li:last-child {
+            margin-bottom: 0;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <div class="grupo-pines">
+        <img src="Recurso 5.png" alt="Pin">
+        <img src="Recurso 6.png" alt="Pin">
+        <img src="Recurso 7.png" alt="Pin">
+        <img src="Recurso 8.png" alt="Pin">
+    </div>
+
+    <div></div>
+
+    <div class="grupo-pines">
+        <img src="Recurso 9.png" alt="Pin">
+        <img src="Recurso 10.png" alt="Pin">
+        <img src="Recurso 11.png" alt="Pin">
+        <img src="Recurso 12.png" alt="Pin">
+    </div>
+</div>
+
+<header>
+    <img src="Recurso 4.png" class="patron-tech-izq" alt="Patrón Izquierdo">
+
+    <div class="logo-area">
+        <img src="mi_logo_institucional.png.png" class="logo-unap" alt="Escudo UNA">
+    </div>
+    
+    <div class="titulo-central-contenedor">
+        <span class="titulo-muro-azul">MURO DIGITAL UNIVERSITARIO</span>
+    </div>
+    
+    <img src="Recurso 4.png" class="patron-tech-der" alt="Patrón Derecho">
+</header>
+
+<nav>
+    <div id="fecha-actual">Cargando fecha...</div>
+    <div id="hora-actual">Cargando hora...</div>
+</nav>
+
+<main class="main-container">
+    
+    <section class="hero-news-slider">
+
+        <div class="news-slide active">
+            <img src="707173296_1429488939216813_6376667138792786249_n.jpg" alt="Noticia 1">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>LA UNA PUNO BRINDA TRANSPORTE GRATUITO A ESTUDIANTES DE SAN ANTONIO DE PUTINA, HUANCANÉ E ILAVE</h2>
+                <p>Se dispusieron buses universitarios con salida los viernes a las 4:00 pm desde el campus y retorno los domingos desde cada provincia, a gestión del rector Dr. Paulino Machaca Ari junto a los alcaldes provinciales.</p>
+            </div>
+        </div>
+        
+        <div class="news-slide active">
+            <img src="690440839_1413743960791311_8421733384213814291_n.jpg" alt="Noticia 2">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>ENTREGAN MÁS DE 5 HECTÁREAS DE TERRENO EN EL C.E CAROLINA A LA E.P DE INGENIERÍA CIVIL</h2>
+                <p>El rector Dr. Paulino Machaca Ari formalizó la entrega mediante Resolución Rectoral de los más de 50,600 m² destinados a laboratorios y espacios académicos.</p>
+            </div>
+        </div>
+
+        <div class="news-slide">
+            <img src="699126739_1419900190175688_8977675949127241768_n.jpg" alt="Noticia 3">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>CONCLUYE VACIADO DEL TERCER NIVEL DEL NUEVO PABELLÓN DE CIENCIAS DE LA COMUNICACIÓN DE LA UNA PUNO</h2>
+                <p>La obra, valorizada en más de 27 millones de soles, registra un avance del 47.89% y en los próximos días iniciará trabajos de instalaciones eléctricas, sanitarias y acabados.</p>
+            </div>
+        </div>
+
+        <div class="news-slide">
+            <img src="690895311_1412791597553214_855984557705996499_n.jpg" alt="Noticia 4">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>INAUGURAN MÁS DE 70 MÓDULOS DE RECARGA CON ENERGÍA SOLAR EN EL CAMPUS DE LA UNA PUNO</h2>
+                <p>El rector Dr. Paulino Machaca Ari hizo entrega de los módulos, fabricados en la propia universidad, para que los estudiantes carguen sus dispositivos electrónicos de forma gratuita las 24 horas. Como siguiente paso, se proyecta implementar recarga inalámbrica.</p>
+            </div>
+        </div>
+
+        <div class="news-slide">
+            <img src="700245786_1420603570105350_800852982201499909_n.jpg" alt="Noticia 5">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>NUTRICIÓN HUMANA Y ODONTOLOGÍA DE LA UNA PUNO CONCLUEN EVALUACIÓN EXTERNA SINEACE</h2>
+                <p>Ambos programas de la Facultad de Ciencias de la Salud completaron la visita de verificación del Sineace, paso previo a la acreditación nacional, en ceremonia con todos los actores involucrados.</p>
+            </div>
+        </div>
+
+        <div class="news-slide">
+            <img src="694772363_1413442040821503_8911181841028448462_n (1).jpg" alt="Noticia 6">
+            <div class="cuerpo-noticia">
+                <span class="tag-lo-ultimo">LO ÚLTIMO</span>
+                <h2>LA UNA PUNO PROYECTA CONVENIO DE COOPERACIÓN CON LA QINGHAI UNIVERSITY DE CHINA</h2>
+                <p>Esta importante iniciativa interinstitucional buscará promover el intercambio académico estudiantil, pasantías docentes y el desarrollo de proyectos de investigación conjunta.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <aside class="sidebar-directorio">
+        <div class="directorio-header">PISOS DE EDIFICIO RECTORADO</div>
+        <div class="directorio-lista">
+            
+            <div class="piso-item">
+                <div class="piso-nombre"><span>PRIMER PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Mesa de Partes</li>
+                </ul>
+            </div>
+
+            <div class="piso-item">
+                <div class="piso-nombre"><span>SEGUNDO PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Grados y Títulos</li>
+                    <li>Tesorería</li>
+                    <li>Contabilidad</li>
+                    <li>Unidad Formuladora</li>
+                    <li>Remuneraciones</li>
+                    <li>Pensión y Liquidaciones</li>
+                </ul>
+            </div>
+
+            <div class="piso-item">
+                <div class="piso-nombre"><span>TERCER PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Dirección General de Administración</li>
+                    <li>Abastecimientos SIGA SIAF</li>
+                    <li>Cooperación internacional</li>
+                    <li>Equipamiento</li>
+                    <li>Soporte Internet</li>
+                    <li>Sistema de Control Interno</li>
+                </ul>
+            </div>
+
+            <div class="piso-item">
+                <div class="piso-nombre"><span>CUARTO PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Secretaría General</li>
+                    <li>Resoluciones</li>
+                    <li>Transparencia</li>
+                    <li>Planeamiento y Presupuesto</li>
+                    <li>Asesoría Jurídica</li>
+                </ul>
+            </div>
+
+            <div class="piso-item">
+                <div class="piso-nombre"><span>QUINTO PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Rectorado</li>
+                    <li>Oficina de Comunicación e Imagen Institucional</li>
+                    <li>Consejo Universitario</li>
+                </ul>
+            </div>
+
+            <div class="piso-item">
+                <div class="piso-nombre"><span>SEXTO PISO</span></div>
+                <ul class="piso-oficinas">
+                    <li>Asamblea Universitaria</li>
+                    <li>Secretaría Técnica Autoridades del PAD</li>
+                </ul>
+            </div>
+
+        </div>
+    </aside>
+
+</main>
+
+<script>
+    function actualizarReloj() {
+        const ahora = new Date();
+        const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        document.getElementById('fecha-actual').innerText = ahora.toLocaleDateString('es-PE', opcionesFecha).toUpperCase();
+        
+        document.getElementById('hora-actual').innerText = TechnicalTimeString(ahora);
+    }
+
+    function TechnicalTimeString(ahora) {
+        const opcionesHora = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true };
+        return ahora.toLocaleTimeString('es-PE', opcionesHora);
+    }
+    
+    setInterval(actualizarReloj, 1000);
+    actualizarReloj();
+
+    let diapositivaActual = 0;
+    const diapositivas = document.querySelectorAll('.news-slide');
+    const tiempoDuracion = 10000; 
+
+    function cambiarNoticia() {
+        diapositivas[diapositivaActual].classList.remove('active');
+        diapositivaActual = (diapositivaActual + 1) % diapositivas.length;
+        diapositivas[diapositivaActual].classList.add('active');
+    }
+
+    setInterval(cambiarNoticia, tiempoDuracion);
+
+    setInterval(function() {
+        window.location.reload();
+    }, 300000); 
+</script>
+
+</body>
+</html>
