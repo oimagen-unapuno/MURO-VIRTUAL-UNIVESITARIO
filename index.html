@@ -20,6 +20,7 @@
             --oscuro: #1a1a1a;
             --gris-claro: #f4f4f4;
             --blanco: #ffffff;
+            --dorado-unap: #ced4da;
         }
 
         html, body {
@@ -31,7 +32,7 @@
         }
 
         body {
-            font-family: 'CinzelCongreso', serif;
+            font-family: 'Cinzel', serif;
             color: var(--oscuro);
             text-transform: uppercase;
             letter-spacing: 0.5px;
@@ -113,12 +114,12 @@
             transform: translateY(-50%) !important; 
             height: 75px !important; 
             width: auto !important;
-            opacity: 0.15; 
+            opacity: 0.55; 
             z-index: 1;
         }
 
-        .patron-tech-izq { left: 40px !important; transform: translateY(-50%) scaleX(-1) !important; }
-        .patron-tech-der { right: 40px !important; }
+        .patron-tech-izq { left: 10px !important; transform: translateY(-50%) scaleX(-1) !important; }
+        .patron-tech-der { right: 10px !important; }
 
         nav {
             background: white;
@@ -126,7 +127,7 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             display: flex;
             justify-content: center; 
-            gap: 40px;              
+            gap: 40px;               
             font-family: 'League Spartan Local', sans-serif !important;
             font-size: 1.0rem; 
             font-weight: 800; 
@@ -139,7 +140,7 @@
             display: flex !important;      
             justify-content: space-between !important; 
             align-items: stretch !important; 
-            gap: 30px; 
+            gap: 20px; 
             padding: 20px 40px;
             box-sizing: border-box;
             flex-grow: 1; 
@@ -148,7 +149,7 @@
 
         .hero-news-slider {
             position: relative;
-            width: 65%;        
+            width: 80%;        
             height: 100%; 
             overflow: hidden;
             background: #ffffff; 
@@ -180,14 +181,14 @@
         
         .news-slide img {
             width: 100%;
-            height: 62%;         
+            height: 72%;         
             object-fit: cover;
         }
 
-        
+       
         .news-slide .cuerpo-noticia {
-            height: 38%;           
-            padding: 20px 35px;
+            height: 28%;           
+            padding: 15px 35px;
             background: #ffffff;   
             box-sizing: border-box;
             display: flex;
@@ -196,19 +197,19 @@
         }
 
         .cuerpo-noticia h2 { 
-            font-size: 1.85rem; 
-            margin: 4px 0 10px 0; 
-            line-height: 1.25; 
+            font-size: 1.7rem; 
+            margin: 2px 0 6px 0; 
+            line-height: 1.2; 
             color: #000000; 
             font-weight: bold;
             font-family: 'League Spartan Local', sans-serif !important; 
         }
 
         .cuerpo-noticia p { 
-            font-size: 1.4rem; 
+            font-size: 1.25rem; 
             color: #1a1a1a; 
             margin: 0;
-            line-height: 1.45;
+            line-height: 1.4;
             text-transform: none; 
             letter-spacing: 0px;
             font-family: 'League Spartan Local', sans-serif !important; 
@@ -216,10 +217,10 @@
 
         .tag-lo-ultimo {
             background: var(--rojo-congreso); 
-            padding: 3px 12px; 
-            font-size: 14px;
+            padding: 2px 10px; 
+            font-size: 20px;
             display: inline-block;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: white;
             align-self: flex-start;
             font-family: 'League Spartan Local', sans-serif !important;
@@ -227,7 +228,7 @@
         }
 
         .sidebar-directorio {
-            width: 35% !important; 
+            width: 20% !important; 
             height: 100%; 
             background: #ffffff;
             border-radius: 12px !important;
@@ -242,50 +243,72 @@
         .directorio-header {
             background: var(--rojo-congreso);
             color: #ffffff;
-            padding: 15px;
+            padding: 12px 5px;
             text-align: center;
             font-family: 'League Spartan Local', sans-serif !important;
-            font-size: 20px;
+            font-size: 18px; 
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             flex-shrink: 0;
         }
 
         .directorio-lista {
-            padding: 12px;
+            padding: 6px; 
             overflow: hidden; 
             display: flex;
             flex-direction: column;
-            gap: 6px; 
+            gap: 5px; 
             height: 100%;
             box-sizing: border-box;
         }
 
         .piso-item {
+            position: relative;
             background: #f9f9f9;
-            border-left: 6px solid var(--rojo-congreso);
-            padding: 8px 14px; 
+            border-left: 5px solid var(--rojo-congreso);
+            padding: 5px 8px; 
             border-radius: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
             box-sizing: border-box;
             display: flex;
             flex-direction: column;
             justify-content: center; 
             flex-grow: 1; 
+            overflow: hidden; 
+            z-index: 1;
+        }
+
+        .piso-item::after {
+            content: attr(data-piso);
+            position: absolute;
+            top: 50%; 
+            right: 25px; 
+            left: auto;  
+            transform: translateY(-50%); 
+            font-family: 'League Spartan Local', sans-serif;
+            font-size: 68px; 
+            font-weight: 900;
+            color: rgba(101, 112, 129, 0.277); 
+            z-index: 0; 
+            pointer-events: none; 
         }
 
         .piso-nombre {
+            position: relative;
+            z-index: 2;
             font-family: 'League Spartan Local', sans-serif !important;
             color: var(--rojo-congreso);
-            font-size: 14px;
+            font-size: 15px; 
             font-weight: 800;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
             display: flex;
             justify-content: space-between;
         }
 
         .piso-oficinas {
-            font-size: 13px; 
+            position: relative;
+            z-index: 2;
+            font-size: 11.5px; 
             color: #000000;
             text-transform: none; 
             font-family: sans-serif;
@@ -293,27 +316,30 @@
             margin: 0;
             padding: 0;
             list-style-type: none; 
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            width: 75%; 
         }
 
         .piso-oficinas li {
             position: relative;
-            padding-left: 16px; 
-            line-height: 1.35;
-            margin-bottom: 1px;
+            padding-left: 10px; 
+            line-height: 1.3;
+            white-space: normal;       
+            word-wrap: break-word;     
+            overflow: visible;         
+            text-overflow: clip;       
         }
 
         .piso-oficinas li::before {
             content: "-"; 
             position: absolute;
-            left: 2px;
-            top: -1px; 
-            font-size: 12px; 
+            left: 0;
+            top: 0px; 
+            font-size: 11px; 
             color: var(--rojo-congreso);
             font-weight: bold;
-        }
-
-        .piso-oficinas li:last-child {
-            margin-bottom: 0;
         }
         
     </style>
@@ -362,7 +388,7 @@
     <section class="hero-news-slider">
 
         <div class="news-slide active">
-            <img src="707173296_1429488939216813_6376667138792786249_n.jpg" alt="Noticia 1">
+            <img src="707173296_1429488939216813_6376667138792786249_n (3).jpg" alt="Noticia 1">
             <div class="cuerpo-noticia">
                 <span class="tag-lo-ultimo">LO ÚLTIMO</span>
                 <h2>LA UNA PUNO BRINDA TRANSPORTE GRATUITO A ESTUDIANTES DE SAN ANTONIO DE PUTINA, HUANCANÉ E ILAVE</h2>
@@ -370,7 +396,7 @@
             </div>
         </div>
         
-        <div class="news-slide active">
+        <div class="news-slide">
             <img src="690440839_1413743960791311_8421733384213814291_n.jpg" alt="Noticia 2">
             <div class="cuerpo-noticia">
                 <span class="tag-lo-ultimo">LO ÚLTIMO</span>
@@ -398,45 +424,46 @@
         </div>
 
         <div class="news-slide">
-            <img src="700245786_1420603570105350_800852982201499909_n.jpg" alt="Noticia 5">
+            <img src="707523246_1430409439124763_7676106325904354622_n.jpg" alt="Noticia 5">
             <div class="cuerpo-noticia">
                 <span class="tag-lo-ultimo">LO ÚLTIMO</span>
-                <h2>NUTRICIÓN HUMANA Y ODONTOLOGÍA DE LA UNA PUNO CONCLUYEN EVALUACIÓN EXTERNA SINEACE</h2>
-                <p>Ambos programas de la Facultad de Ciencias de la Salud completaron la visita de verificación del Sineace, paso previo a la acreditación nacional, en ceremonia con todos los actores involucrados.</p>
+                <h2>LA UNA PUNO RECUPERARÁ ESPECIES ÍCTICAS NATIVAS DEL TITICACA EN ALIANZA CON EL GOBIERNO REGIONAL</h2>
+                <p>Mediante un convenio interinstitucional, la Facultad de Ciencias Biológicas y el GORE Puno pusieron en marcha un megaproyecto para recuperar especies nativas como el carachi, con la instalación de laboratorios, incubadoras y pozas en el Centro Experimental de Chucuito. Se prevé insertar más de un millón de carachis al Lago Titicaca para su repoblación.</p>
             </div>
         </div>
 
         <div class="news-slide">
-            <img src="694772363_1413442040821503_8911181841028448462_n (1).jpg" alt="Noticia 6">
+            <img src="694772363_1413442040821503_8911181841028448462_n.jpg" alt="Noticia 6">
             <div class="cuerpo-noticia">
                 <span class="tag-lo-ultimo">LO ÚLTIMO</span>
                 <h2>LA UNA PUNO PROYECTA CONVENIO DE COOPERACIÓN CON LA QINGHAI UNIVERSITY DE CHINA</h2>
                 <p>Esta importante iniciativa interinstitucional buscará promover el intercambio académico estudiantil, pasantías docentes y el desarrollo de proyectos de investigación conjunta.</p>
             </div>
         </div>
-         <div class="news-slide">
+
+        <div class="news-slide">
             <img src="708345696_1430367632462277_2933557033059580352_n.jpg" alt="Noticia 7">
             <div class="cuerpo-noticia">
                 <span class="tag-lo-ultimo">LO ÚLTIMO</span>
                 <h2>LA UNA PUNO Y LA ORGANIZACIÓN DEMOCRÁTICA MUNDIAL FIRMAN CONVENIO INTERINSTITUCIONAL</h2>
-                <p>El rector Dr. Paulino Machaca Ari y el representante de la ODM, Roberto Carlos Vargas Machuca, suscribieron el convenio con vigencia de 2 años, orientado a ejecutar proyectos de desarrollo local priorizando derechos humanos, gobernabilidad y democracia, especialmente para personas en situación de vulnerabilidad.</p>
+                <p>El rector Dr. Paulino Machaca Ari y el representative de la ODM, Roberto Carlos Vargas Machuca, suscribieron el convenio con vigencia de 2 años, orientando a ejecutar proyectos de desarrollo local priorizando derechos humanos, gobernabilidad y democracia, especialmente para personas en situación de vulnerabilidad.</p>
             </div>
         </div>
 
     </section>
 
     <aside class="sidebar-directorio">
-        <div class="directorio-header">PISOS DE EDIFICIO RECTORADO</div>
+        <div class="directorio-header">OFICINAS DEL EDIFICIO RECTORADO</div>
         <div class="directorio-lista">
             
-            <div class="piso-item">
+            <div class="piso-item" data-piso="1">
                 <div class="piso-nombre"><span>PRIMER PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Mesa de Partes</li>
                 </ul>
             </div>
 
-            <div class="piso-item">
+            <div class="piso-item" data-piso="2">
                 <div class="piso-nombre"><span>SEGUNDO PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Grados y Títulos</li>
@@ -448,7 +475,7 @@
                 </ul>
             </div>
 
-            <div class="piso-item">
+            <div class="piso-item" data-piso="3">
                 <div class="piso-nombre"><span>TERCER PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Dirección General de Administración</li>
@@ -460,7 +487,7 @@
                 </ul>
             </div>
 
-            <div class="piso-item">
+            <div class="piso-item" data-piso="4">
                 <div class="piso-nombre"><span>CUARTO PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Secretaría General</li>
@@ -471,7 +498,7 @@
                 </ul>
             </div>
 
-            <div class="piso-item">
+            <div class="piso-item" data-piso="5">
                 <div class="piso-nombre"><span>QUINTO PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Rectorado</li>
@@ -480,11 +507,11 @@
                 </ul>
             </div>
 
-            <div class="piso-item">
+            <div class="piso-item" data-piso="6">
                 <div class="piso-nombre"><span>SEXTO PISO</span></div>
                 <ul class="piso-oficinas">
                     <li>Asamblea Universitaria</li>
-                    <li>Secretaría Técnica Autoridades del PAD</li>
+                    <li>Secretaría Técnico Autoridades del PAD</li>
                 </ul>
             </div>
 
@@ -496,10 +523,13 @@
 <script>
     function actualizarReloj() {
         const ahora = new Date();
-        const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        document.getElementById('fecha-actual').innerText = ahora.toLocaleDateString('es-PE', opcionesFecha).toUpperCase();
-        
+        document.getElementById('fecha-actual').innerText = machinedate(ahora);
         document.getElementById('hora-actual').innerText = TechnicalTimeString(ahora);
+    }
+
+    function machinedate(ahora) {
+        const opcionesFecha = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+        return ahora.toLocaleDateString('es-PE', opcionesFecha).toUpperCase();
     }
 
     function TechnicalTimeString(ahora) {
